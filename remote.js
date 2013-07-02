@@ -9,6 +9,7 @@ function RemoteJS(type, options){
 	if(!options.remote_disconnected) options.remote_disconnected = function (data){log('Remote disconnected - '+JSON.stringify(data));};
 	if(!options.app_disconnected) options.app_disconnected = function (data){log('App disconnected - '+JSON.stringify(data));};
 	if(!options.receive_data) options.receive_data = function (data){log('Data received - '+JSON.stringify(data));};
+	if(!options.on_error) options.on_error = function (data){log('Error - '+JSON.stringify(data));};
 	if(!options.app_id) options.app_id = false;
 	
 	this.type = type;
@@ -32,6 +33,10 @@ function RemoteJS(type, options){
 
 	socket.on('receive_data', function (data){
 		if(data.to == that.type) options.receive_data(data.receive);
+	});
+
+	socket.on('receive_data', function (data){
+		options.on_error(data);
 	});
 
 	this.connect = function (id, cb){

@@ -3,7 +3,8 @@ var io = require('socket.io').listen(8080);
 var connected_apps = []; // [socket id, app id]
 var sockets_type = [];
 
-var debug = true;
+var debug = true;   
+
 
 function log(m){if(debug)console.log(m);};
 
