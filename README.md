@@ -15,7 +15,8 @@ Application:
 		remote_connected: function(){...},
 		remote_disconnected: function(){...},
 		receive_data: function(data){...},
-		on_error: function(data){...}
+		on_error: function(data){...},
+		app_id: ''//a string that makes your app unique
 	});
 	remote.connect();
 
@@ -25,7 +26,8 @@ Remote:
 		server: 'your_remotejs_server.domain_name.com',//if you don't want to host a server, the app will run on our server
 		app_disconnected: function(){...},
 		receive_data: function(data){...},
-		on_error: function(data){...}
+		on_error: function(data){...},
+		app_id: ''//if you app name in 'remote_test' and you room_id is 'remote_test_123456', you will have to introduce , as room_id , just '123456'
 	});
 	remote.connect(room_id, function (){
 		//callback
