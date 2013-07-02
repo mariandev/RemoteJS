@@ -1,7 +1,7 @@
 RemoteJS
 ========
 
-Transform your app into a remote/controller.
+Transform your smartphone into a remote/controller.
 
 RemoteJS is a simple app that enables you to transform a smartphone into a remote. It has a simple API that anyone with basic javascript knowledge can understand.
 
