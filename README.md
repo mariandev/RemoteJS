@@ -32,4 +32,5 @@ Remote:
 	});
 
 After you set this things up you can send messages back and forth with:
+
 	remote.send(data);//data: JSON
