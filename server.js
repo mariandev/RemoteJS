@@ -5,7 +5,6 @@ var sockets_type = [];
 
 var debug = true;   
 
-
 function log(m){if(debug)console.log(m);};
 
 io.sockets.on('connection', function (socket) {
