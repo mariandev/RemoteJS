@@ -46,7 +46,7 @@ function RemoteJS(type, options){
 			cb = id;
 			id = options.app_id;
 		}
-		else{
+		else if(this.type == 'app' && !options.app_id){
 			log('You need to set an app id.');
 		}
 		socket.emit('connect', {type: this.type, id: id});
