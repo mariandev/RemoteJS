@@ -1,10 +1,4 @@
-var http = require('http');
-var server = http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-}).listen(process.env.VMC_APP_PORT || 1337);
-
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(8080);
 
 var connected_apps = []; // [socket id, app id]
 var sockets_type = [];
