@@ -35,7 +35,7 @@ function RemoteJS(type, options){
 		if(data.to == that.type) options.receive_data(data.receive);
 	});
 
-	socket.on('receive_data', function (data){
+	socket.on('error', function (data){
 		options.on_error(data);
 	});
 
