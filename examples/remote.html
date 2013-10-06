@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+	<head>
+		<title>RemoteJS Example APP</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<style>
+			*{
+				-moz-user-select: none; 
+		        -khtml-user-select: none; 
+		        -webkit-user-select: none; 
+		        -o-user-select: none;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="toggle">TOGGLE</button><br><br>
+		<b>Latest message received: </b><span id="lmsg"></span><br><br>
+		<b>Write message: </b><input type="text" id="msg"><button id="send">Send message</button>
+		<script src="http://remotejs-mariandev.rhcloud.com/socket.io/socket.io.js"></script>
+		<script src="../remote.js"></script>
+		<script>
+			var remote, toggle=0;
+			window.onload = function(){
+				remote = new RemoteJS('remote',{
+					app_id: 'remotejs_app_example',
+				    app_disconnected: app_disconnected,
+				    receive_data: receive_data,
+				    on_error: on_error,
+				});
+				var rid = prompt("Please enter your Room ID:","");
+				remote.connect(rid);
+				function app_disconnected(){
+					alert("App disconnected");
+				}
+				function receive_data(data){
+					if(data.key == 'msg'){
+						document.getElementById('lmsg').innerHTML = data.value;
+					}
+				}
+				function on_error(err){
+					console.error(err);
+				}
+				document.getElementById('toggle').onmousedown = function(){
+					toggle = toggle===1?0:1;
+					remote.send({
+						'key':'toggle',
+						'value': toggle
+					});
+				};
+				document.getElementById('send').onmousedown = function(){
+					console.log('click');
+					remote.send({
+						'key':'msg',
+						'value':''+(document.getElementById('msg').value)
+					});
+				};
+			};
+		</script>
+
+	</body>
+</html>

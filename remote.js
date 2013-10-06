@@ -4,7 +4,7 @@ function RemoteJS(type, options){
 
 	if(!options)
 		var options = {};
-	if(!options.server) options.server = 'http://localhost:8080';
+	if(!options.server) options.server = 'http://remotejs-mariandev.rhcloud.com/';
 	if(!options.remote_connected) options.remote_connected = function (data){log('Remote connected - '+JSON.stringify(data));};
 	if(!options.remote_disconnected) options.remote_disconnected = function (data){log('Remote disconnected - '+JSON.stringify(data));};
 	if(!options.app_disconnected) options.app_disconnected = function (data){log('App disconnected - '+JSON.stringify(data));};
@@ -61,17 +61,3 @@ function RemoteJS(type, options){
 		socket.emit('send_data', {send: data, rid: this.rid, to: (this.type == 'app'?'remote':'app')});
 	}
 }
-
-
-/*
-
-var remotejs = new RemoteJS('app', options);
-var remotejs = new RemoteJS('remote', options);
-
-options: 
-	- server : string
-	- remote_connected : function
-	- remote_disconnected : function
-	- app_disconnected : function
-
-*/

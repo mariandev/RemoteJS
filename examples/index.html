@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+	<head>
+		<title>RemoteJS Example APP</title>
+	</head>
+	<body>
+		<b>Room ID: </b><span id="rid"></span><br><br>
+		<b>Remote: </b><span id="remotestatus"><span style="color: red;">NOT CONNECTED</span></span><br><br>
+		<b>Toggle: </b><span id="toggle"><span style="color: red;">OFF</span></span><br><br>
+		<b>Latest message received: </b><span id="lmsg"></span><br><br>
+		<b>Write message: </b><input type="text" id="msg"><button id="send">Send message</button><br><br><br>
+		<div id="sidenote">
+			<b>Note: </b>Keep in mind the this host supports only xhr-polling so the connection is a bit slow. If you run this on a host which supports WebSockets (or localhost) the connection will be alomost instant.
+		</div><br>
+		<script src="http://remotejs-mariandev.rhcloud.com/socket.io/socket.io.js"></script>
+		<script src="../remote.js"></script>
+		<script>
+			var remote;
+			window.onload = function(){
+				remote = new RemoteJS('app',{
+					app_id: 'remotejs_app_example',
+					remote_connected: remote_connected,
+				    remote_disconnected: remote_disconnected,
+				    receive_data: receive_data,
+				    on_error: on_error,
+				});
+
+				remote.connect(function(data){
+					data = data.split("_");
+					data = data[data.length-1];
+					document.getElementById('rid').innerHTML = data;
+				});
+
+				function remote_connected(){
+					document.getElementById('remotestatus').innerHTML = '<span style="color: green;">CONNECTED</span>';
+				}
+				function remote_disconnected(){
+					document.getElementById('remotestatus').innerHTML = '<span style="color: red;">NOT CONNECTED</span>';
+				}
+				function receive_data(data){
+					if(data.key == 'toggle'){
+						if(data.value) document.getElementById('toggle').innerHTML = '<span style="color: green;">ON</span>';
+						else document.getElementById('toggle').innerHTML = '<span style="color: red;">OFF</span>';
+					}else if(data.key == 'msg'){
+						document.getElementById('lmsg').innerHTML = data.value;
+					}
+				}
+				function on_error(err){
+					console.error(err);
+				}
+
+				document.getElementById('send').onmousedown = function(){
+					console.log('click');
+					remote.send({
+						'key':'msg',
+						'value':''+(document.getElementById('msg').value),
+						'time': Date.now()
+					});
+				};
+			};
+		</script>
+
+	</body>
+</html>
