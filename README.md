@@ -8,8 +8,9 @@ RemoteJS is a simple app that enables you to transform a smartphone into a remot
 Demo application
 ================
 
-App: http://demo.mariandev.eu/remotejs/
-Remote: http://demo.mariandev.eu/remotejs/remote.html
+App: http://goo.gl/ukJgmP
+
+Remote: http://goo.gl/SNdvz3
 
 Demo code
 =========
